@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 class Histo :
 
@@ -67,9 +68,16 @@ class Histo :
 
         return
 
-    def BinCenters(self,bin_edges) :
+    def BinCenters(self,bin_edges = None) :
+        if type(bin_edges) == type(None) :
+            bin_edges = self.xbin_edges
         return bin_edges[:-1] + np.diff(bin_edges) / 2
 
     def Draw(self) :
-        import matplotlib.pyplot as plt
         plt.errorbar(self.BinCenters(self.xbin_edges), self.sumw[1:-1], yerr=np.sqrt(self.sumw2[1:-1]), fmt='o')
+
+    def errorbar(self) :
+        return self.Draw()
+
+    def bar(self,**kwargs) :
+        plt.bar(self.BinCenters(self.xbin_edges),self.sumw[1:-1],width=np.diff(self.xbin_edges),**kwargs)
