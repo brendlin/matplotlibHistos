@@ -73,11 +73,12 @@ class Histo :
             bin_edges = self.xbin_edges
         return bin_edges[:-1] + np.diff(bin_edges) / 2
 
-    def Draw(self) :
-        plt.errorbar(self.BinCenters(self.xbin_edges), self.sumw[1:-1], yerr=np.sqrt(self.sumw2[1:-1]), fmt='o')
+    def Draw(self,**kwargs) :
+        # fmt = 'o' is a nice one...
+        plt.errorbar(self.BinCenters(self.xbin_edges), self.sumw[1:-1], yerr=np.sqrt(self.sumw2[1:-1]),**kwargs)
 
-    def errorbar(self) :
-        return self.Draw()
+    def errorbar(self,**kwargs) :
+        return self.Draw(**kwargs)
 
     def bar(self,**kwargs) :
         plt.bar(self.BinCenters(self.xbin_edges),self.sumw[1:-1],width=np.diff(self.xbin_edges),**kwargs)
