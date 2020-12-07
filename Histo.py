@@ -81,4 +81,11 @@ class Histo :
         return self.Draw(**kwargs)
 
     def bar(self,**kwargs) :
-        plt.bar(self.BinCenters(self.xbin_edges),self.sumw[1:-1],width=np.diff(self.xbin_edges),**kwargs)
+        # Bar graph (like a histogram, but beware--it has annoying vertical bars.)
+        return plt.bar(self.BinCenters(self.xbin_edges),
+                       self.sumw[1:-1],width=np.diff(self.xbin_edges),**kwargs)
+
+    def hist(self,**kwargs) :
+        # probably want to use this in conjunction with argument histtype='step'
+        return plt.hist(self.BinCenters(self.xbin_edges),
+                        self.xbin_edges,weights=self.sumw[1:-1],**kwargs)
